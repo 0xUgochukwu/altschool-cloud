@@ -1,0 +1,22 @@
+---
+
+
+# Set Up NginX Web Server
+- hosts: all
+  become: true
+  become_user: root
+  gather_facts: false
+  tasks:
+    - include_role: 
+        name: nginx
+        
+
+# Set Up ufw FireWall
+
+- hosts: all
+  become: true
+  become_user: root
+  gather_facts: false
+  tasks:
+    - include_role:
+        name: ufw
