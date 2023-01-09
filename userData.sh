@@ -9,4 +9,4 @@ sudo ufw enable
 sudo ufw allow 'Nginx HTTP'
 sudo ufw allow 'Nginx Full'
 sudo ufw allow 'OpenSSH'
-echo "<h1>I am $(hostname -f)</h1>" > /var/www/html/index.html
+echo "<h1>Good day from $(hostname -f)</h1>" > /var/www/html/index.html
