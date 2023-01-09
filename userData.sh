@@ -5,7 +5,7 @@ sudo apt install -y nginx
 sudo apt install -y ufw
 systemctl start nginx
 systemctl enable nginx
-sudo ufw enable
+sudo ufw -y enable
 sudo ufw allow 'Nginx HTTP'
 sudo ufw allow 'Nginx Full'
 sudo ufw allow 'OpenSSH'
