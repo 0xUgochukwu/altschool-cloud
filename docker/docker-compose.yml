@@ -6,14 +6,18 @@ services:
       context: '.'
       args:
         uid: ${UID}
+        user: ugo
+    image: ugo:php
     container_name: laravel-app
     ports:
-      - 8000:80
+      - 80:80
+      - 443:443
     environment:
       - APACHE_RUN_USER=#1000
       - APACHE_RUN_GROUP=#1000
     volumes:
-      - .:/var/www/html
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       backend:
         aliases:
@@ -25,7 +29,8 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./run/var:/var/lib/mysql
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=securerootpassword
       - MYSQL_DATABASE=${DB_DATABASE}
@@ -38,4 +43,4 @@ services:
 
 networks:
   backend:
-    name: backend-network
+    name: laravel-network
