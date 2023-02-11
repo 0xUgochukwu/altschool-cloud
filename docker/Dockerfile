@@ -1,5 +1,8 @@
 FROM php:8.1-apache-bullseye
 
+ARG user
+ARG uid
+
 # 1. Install development packages and clean up apt cache.
 RUN apt-get update && apt-get install -y \
     curl \
@@ -59,9 +62,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # 6. We need a user with the same UID/GID as the host user
 # so when we execute CLI commands, all the host file's permissions and ownership remain intact.
 # Otherwise commands from inside the container would create root-owned files and directories.
-ARG uid
-RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
-RUN mkdir -p /home/devuser/.composer && \
-    chown -R devuser:devuser /home/devuser
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
-EXPOSE 80 443
+# Set working directory
+WORKDIR /var/www
+
+USER $user
