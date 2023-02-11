@@ -44,3 +44,9 @@ services:
 networks:
   backend:
     name: laravel-network
+    
+    
+#Volumes
+volumes:
+  dbdata:
+    driver: local
